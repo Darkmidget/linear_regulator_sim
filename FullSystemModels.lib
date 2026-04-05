@@ -21,8 +21,9 @@
 * Specs: Vdss=-55V, Rds(on)=0.020Ω (typ @Vgs=-10V, Id=-74A), Id=-74A max
 * Source: Infineon manufacturer model, optimized for LTspice VDMOS
 * Note: Removed invalid LTspice parameter VGS=-55; using standard PMOS parameters
+* Updated VTO to -1.5V per Infineon datasheet (Vgs(th) = -1.0 to -2.0V typical)
 * -----------------------------------------------------------------------------
-.MODEL irf4905slpbf PMOS (VTO=-3.5 KP=35 RS=0.015 RD=0.01 RG=2.6 IS=1e-12 N=1.0 CGSO=2n CGDO=0.5n CGBO=0) 
+.MODEL irf4905slpbf PMOS (VTO=-1.5 KP=35 RS=0.015 RD=0.01 RG=2.6 IS=1e-12 N=1.0 CGSO=2n CGDO=0.5n CGBO=0) 
 
 
 * -----------------------------------------------------------------------------
