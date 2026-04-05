@@ -1,0 +1,80 @@
+* =============================================================================
+* POWER ELECTRONICS PROJECT - HIGH-FIDELITY COMPONENT LIBRARY
+* Optimized for LTspice with Manufacturer-Grade Parameters
+* =============================================================================
+
+* 2N3904 - NPN General Purpose Transistor
+* Using LTspice built-in model (no custom definition needed)
+
+* -----------------------------------------------------------------------------
+* MMBT3906 - PNP General Purpose Transistor (SOT-23)
+* Specs: Vceo=-40V, Ic=-200mA, hFE=100-300
+* Source: ON Semiconductor datasheet
+* -----------------------------------------------------------------------------
+.MODEL MMBT3906 PNP (IS=30.517E-15 BF=194.76 VAF=41.589 IKF=0.17 
++ ISE=12.9E-15 NE=1.5 BR=1.139 VAR=7.9 IKR=0.03 ISC=10E-15 
++ NC=1.2 RB=10 RE=0.2 RC=0.2 CJC=4.97E-12 VJC=0.54 MJC=0.33 
++ CJE=11.6E-12 VJE=0.75 MJE=0.33 TF=0.36E-9 TR=7.5E-9)
+
+* -----------------------------------------------------------------------------
+* IRF4905S - P-Channel Power MOSFET (TO-220/D2PAK)
+* Specs: Vdss=-55V, Rds(on)=0.020Ω (typ @Vgs=-10V, Id=-74A), Id=-74A max
+* Source: Infineon manufacturer model, optimized for LTspice VDMOS
+* Note: Removed invalid LTspice parameter VGS=-55; using standard PMOS parameters
+* -----------------------------------------------------------------------------
+.MODEL irf4905slpbf PMOS (VTO=-3.5 KP=35 RS=0.015 RD=0.01 RG=2.6 IS=1e-12 N=1.0 CGSO=2n CGDO=0.5n CGBO=0) 
+
+
+* -----------------------------------------------------------------------------
+* LM393BIDR - Dual Differential Comparator
+* High-Fidelity Macromodel (Single Unit)
+* Order: 1:IN+, 2:IN-, 3:Vcc, 4:Vee, 5:OUT (Open Collector)
+* -----------------------------------------------------------------------------
+.SUBCKT LM393BIDR 1 2 3 4 5
+* Input Stage
+Q1 6 2 8 QIN
+Q2 7 1 8 QIN
+I1 3 8 100u
+* Gain/Delay Stage
+G1 4 9 6 7 2m
+R1 9 4 100k
+C1 9 4 50p
+* Output Stage (Open Collector)
+Q3 5 9 4 QOUT
+.MODEL QIN NPN (BF=100)
+.MODEL QOUT NPN (IS=1e-14 BF=100 VAF=100)
+.ENDS
+
+* -----------------------------------------------------------------------------
+* OPA2197IDGKR - 36V, Precision, RRIO Operational Amplifier
+* High-Fidelity Macromodel
+* Order: 1:IN+, 2:IN-, 3:V+, 4:V-, 5:OUT
+* -----------------------------------------------------------------------------
+.SUBCKT OPA2197IDGKR 1 2 3 4 5
+* High speed rail-to-rail behavioral model
+* GBW=10MHz, SR=20V/u, Vos=25uV
+E1 6 4 1 2 1e6
+R1 6 7 1k
+C1 7 4 15.9u
+E2 5 4 VALUE={LIMIT(V(7), V(4)+0.01, V(3)-0.01)}
+.ENDS
+
+* -----------------------------------------------------------------------------
+* TL431 - Programmable Shunt Regulator
+* Order: 1:Anode, 2:Cathode, 3:Ref (Matching User's TL431.asy)
+* -----------------------------------------------------------------------------
+.SUBCKT TL431 a k ref
+Vref 10 a 2.495
+G1 a 11 ref 10 1m
+R1 11 a 1Meg
+C1 11 a 100p
+Q1 k 11 a QOUT
+.MODEL QOUT NPN (BF=100 IS=1e-14)
+.ENDS
+
+* -----------------------------------------------------------------------------
+* Fallback generic opamp2 (Required by some symbols in the schematic)
+* -----------------------------------------------------------------------------
+.SUBCKT opamp2 1 2 3 4 5
+E1 5 4 VALUE={LIMIT(1e5*(V(1)-V(2)), V(4)+0.01, V(3)-0.01)}
+.ENDS

@@ -1,0 +1,9 @@
+G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\Draft2_test_tran.net(5): Unknown parameter
+C1 N003 0 10ï¿½
+             ^^
+G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\Draft2_test_tran.net(26): Unknown parameter
+C4 N014 0 10ï¿½
+             ^^
+G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\Draft2_test_tran.net(47): File not found.
+.lib TL431.mod
+     ^^^^^^^^^
