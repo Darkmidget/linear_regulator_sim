@@ -1,6 +1,6 @@
 LTspice 26.0.1 for Windows
 Circuit: G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\Draft2.net
-Start Time: Sun Apr  5 20:40:50 2026
+Start Time: Sun Apr  5 20:46:27 2026
 Options:method=gear cshunt=1e-12
 solver = Normal
 Maximum thread count: 12
@@ -8,3 +8,11 @@ tnom = 27
 temp = 27
 method = Gear
 Per .tran options, skipping operating point for transient analysis.
+Total elapsed time: 22.860 seconds.
+
+Files loaded:
+G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\Draft2.net
+C:\Users\vince\AppData\Local\LTspice\lib\cmp\standard.bjt
+C:\Users\vince\AppData\Local\LTspice\lib\cmp\standard.mos
+G:\My Drive\0 - SUTD\Term 6\Power Electronics\Project\ltspice\FullSystemModels.lib
+
