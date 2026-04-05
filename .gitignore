@@ -1,1 +1,9 @@
-﻿
+﻿# LTspice simulation outputs
+*.raw
+*.log
+*.op.raw
+*.plt
+
+# OS files
+.DS_Store
+Thumbs.db
